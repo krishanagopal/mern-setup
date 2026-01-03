@@ -10,4 +10,14 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 
+import { protect } from "../middlewares/auth.middlewares.js";
+
+router.get("/me", protect, (req, res) => {
+  res.status(200).json({
+    message: "Access granted",
+    user: req.user,
+  });
+});
+
+
 export default router;

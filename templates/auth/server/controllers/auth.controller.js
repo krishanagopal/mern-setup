@@ -1,5 +1,7 @@
 import User from "../modals/user.model.js";
 import { hashPassword } from "../utils/hash.js";
+import { generateToken } from "../utils/jwt.js";
+
 
 
 
@@ -84,9 +86,12 @@ export const loginUser = async (req, res) => {
       });
     }
 
+   const token = generateToken(user._id);
+
     // 4. Success response
     res.status(200).json({
       message: "Login successful",
+      token,
       user: {
         id: user._id,
         name: user.name,
